@@ -1,0 +1,60 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "neil.com.kotlinone"
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    // kotlin 插件
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    // rxjava retrofit
+    compile "com.squareup.retrofit2:retrofit:$retrofit2_version"
+    compile "com.squareup.retrofit2:converter-gson:$retrofit2_converter_gson_version"
+    compile "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$retrofit2_rxjava2_adapter_version"
+    compile "io.reactivex.rxjava2:rxjava:$rxjava_version"
+    compile "io.reactivex.rxjava2:rxandroid:$rxjava_android_version"
+    compile "com.squareup.okhttp3:logging-interceptor:$okhttp3_logging_version"
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    // 沉侵式
+    implementation "com.gyf.barlibrary:barlibrary:$barlibrary_version"
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+
+    //
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_version"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:$retrofit2_converter_kotlin_coroutines_version"
+    // 适配器
+    implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:$brvah_version"
+
+    // 高性能的webview 优化
+    implementation "com.just.agentweb:agentweb:$agentweb_version"
+
+    // material design
+    implementation "com.android.support:design:$support_version"
+}
+
+repositories {
+    mavenCentral()
+}

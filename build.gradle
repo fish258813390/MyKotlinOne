@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.1.2-4' //kotlin的版本号
+    ext.kotlin_version = '1.2.10'  //kotlin的版本号
     ext.retrofit2_version = '2.1.0' // retrofit rxjava
     ext.retrofit2_converter_gson_version = "2.1.0"
     ext.retrofit2_rxjava2_adapter_version = "1.0.0"
@@ -11,7 +11,7 @@ buildscript {
     ext.barlibrary_version = "2.3.0" // 沉侵式
     ext.glide_version = "3.7.0"
 
-    ext.kotlin_coroutines_version = "0.20" // retrofit 用用到Deferred
+    ext.kotlin_coroutines_version = "0.20" // retrofit 协程编程用到Deferred
     ext.retrofit2_converter_kotlin_coroutines_version = "1.0.0"
     ext.brvah_version = "2.9.34"
     ext.agentweb_version = "3.0.0" // 高性能的webview

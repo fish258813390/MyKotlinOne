@@ -1,19 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/typeSwipeRefreshLayout"
+    android:id="@+id/tabSwipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/typeRecyclerView"
+        android:id="@+id/tabRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbarSize="@dimen/dp_10"
-        android:paddingTop="@dimen/dp_10"
         android:clipToPadding="false"
+        android:paddingTop="@dimen/dp_10"
+        android:scrollbarSize="@dimen/dp_10"
         android:scrollbars="vertical"
-        tools:listitem="@layout/type_list_item"/>
+        tools:listitem="@layout/home_list_item" />
 
 </android.support.v4.widget.SwipeRefreshLayout>

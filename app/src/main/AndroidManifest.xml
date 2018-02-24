@@ -30,6 +30,7 @@
         <activity android:name=".ui.HomeClientActivity" />
         <activity android:name=".ui.activity.ContentActivity" />
         <activity android:name=".ui.activity.AboutActivity" />
+        <activity android:name=".ui.activity.TypeContentActivity" />
 
     </application>
 

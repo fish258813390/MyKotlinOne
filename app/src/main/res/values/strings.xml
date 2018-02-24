@@ -42,4 +42,9 @@
     <string name="bookmark_cancel_success">取消收藏成功</string>
     <string name="bookmark_cancel_failed">取消收藏失败：%1$s</string>
 
+    <!--no data-->
+    <string name="no_data">这里空空的…</string>
+    <string name="get_data_error">获取数据失败</string>
+    <string name="get_data_zero">获取数据为空</string>
+
 </resources>

@@ -12,6 +12,7 @@ import neil.com.kotlinone.cancelByActive
 import neil.com.kotlinone.constant.Constant
 import neil.com.kotlinone.model.HomeModel
 import neil.com.kotlinone.presenter.client.HomePresenter
+import neil.com.kotlinone.tryCatch
 import neil.com.kotlinone.utils.RetrofitUtils
 
 /**
@@ -20,6 +21,7 @@ import neil.com.kotlinone.utils.RetrofitUtils
  * @date 2018/2/22
  */
 class HomeModelImpl : HomeModel {
+
 
     // 协程任务 https://www.jianshu.com/p/d4a8358e843e
     private var homeListAsync: Deferred<HomeListResponse>? = null
@@ -69,37 +71,69 @@ class HomeModelImpl : HomeModel {
     }
 
     override fun getBanner(onBannerListener: HomePresenter.OnBannerListener) {
-//        async(UI) {
-//            bannerAsync?.cancelByActive()
-//            bannerAsync = RetrofitUtils.coroutineService.getBanner()
-//            val result = bannerAsync?.await()
-//            result ?: let {
-//                onBannerListener.getBannerFailed(Constant.RESULT_NULL)
-//                return@async
-//            }
-//            onBannerListener.getBannerSuccess(result)
-//        }
+        async(UI) {
+            tryCatch({
+                it.printStackTrace()
+                onBannerListener.getBannerFailed(it.toString())
+            }) {
+                bannerAsync?.cancelByActive()
+                bannerAsync = RetrofitUtils.coroutineService.getBanner()
+                val result = bannerAsync?.await()
+                result ?: let {
+                    onBannerListener.getBannerFailed(Constant.RESULT_NULL)
+                    return@async
+                }
+                onBannerListener.getBannerSuccess(result)
+            }
+        }
 
+//        RetrofitUtils
+//                .retrofitClientService
+//                .getBanner1()
+//                .subscribeOn(Schedulers.io())
+//                .unsubscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(
+//                        { result ->
+//                            onBannerListener.getBannerSuccess(result)
+//                            Log.d("success --->", result.toString())
+//                        },
+//                        { error ->
+//                            onBannerListener.getBannerFailed(Constant.RESULT_NULL)
+//                            Log.d("error --->", error.toString())
+//                        }, {
+//                    Log.d("HomeModelImpl --->", "onCompleted")
+//                }, {
+//                    Log.d("HomeModelImpl --->", "onStart")
+//                })
+    }
+
+    /**
+     * 获得知识体系
+     */
+    override fun getTypeTreeList(onTypeTreeListListener: HomePresenter.OnTypeTreeListListener) {
         RetrofitUtils
                 .retrofitClientService
-                .getBanner1()
+                .getTypeTreeList()
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { result ->
-                            onBannerListener.getBannerSuccess(result)
-                            Log.d("success --->", result.toString())
+                            onTypeTreeListListener.getTypeTreeListSuccess(result)
+                            Log.e("TypeTreListSuccess --->", result.toString())
                         },
                         { error ->
-                            onBannerListener.getBannerFailed(Constant.RESULT_NULL)
-                            Log.d("error --->", error.toString())
+                            onTypeTreeListListener.getTypeTreeListFailed(Constant.RESULT_NULL)
+                            Log.d("TypeTreeListError --->", error.toString())
                         }, {
                     Log.d("HomeModelImpl --->", "onCompleted")
                 }, {
                     Log.d("HomeModelImpl --->", "onStart")
                 })
+    }
 
+    override fun cancelTypeTreeRequest() {
     }
 
     override fun cancelBannerRequest() {

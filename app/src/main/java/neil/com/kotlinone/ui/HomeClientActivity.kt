@@ -19,6 +19,7 @@ import neil.com.kotlinone.base.BaseActivity
 import neil.com.kotlinone.base.Preference
 import neil.com.kotlinone.constant.Constant
 import neil.com.kotlinone.toast
+import neil.com.kotlinone.ui.activity.AboutActivity
 import neil.com.kotlinone.ui.fragment.CommonUseFragment
 import neil.com.kotlinone.ui.fragment.HomeFragment
 import neil.com.kotlinone.ui.fragment.TypeFragment
@@ -149,19 +150,19 @@ class HomeClientActivity : BaseActivity() {
         when (item.itemId) {
             R.id.nav_like -> {
                 if (!isLogin) {
-                    Intent(this, MainActivity::class.java).run {
-                        startActivityForResult(this, 1)
-                    }
+//                    Intent(this, MainActivity::class.java).run {
+//                        startActivityForResult(this, 1)
+//                    }
                     toast(getString(R.string.login_please_login))
                     return@OnNavigationItemSelectedListener true
                 }
-                Intent(this, MainActivity::class.java).run {
-                    putExtra(Constant.SEARCH_KEY, false)
-                    startActivityForResult(this, Constant.MAIN_LIKE_REQUEST_CODE)
-                }
+//                Intent(this, MainActivity::class.java).run {
+//                    putExtra(Constant.SEARCH_KEY, false)
+//                    startActivityForResult(this, Constant.MAIN_LIKE_REQUEST_CODE)
+//                }
             }
             R.id.nav_about -> {
-                Intent(this, MainActivity::class.java).run {
+                Intent(this, AboutActivity::class.java).run {
                     startActivity(this)
                 }
             }
@@ -205,7 +206,7 @@ class HomeClientActivity : BaseActivity() {
                     }
                     R.id.navigation_type -> {
                         if (currentIndex == R.id.navigation_type) {
-//                            typeFragment?.smoothScrollToPosition()
+                            typeFragment?.smoothScrollToPosition()
                         }
                         currentIndex = R.id.navigation_type
                         true

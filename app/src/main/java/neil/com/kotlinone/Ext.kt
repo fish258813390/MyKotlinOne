@@ -31,7 +31,7 @@ fun Deferred<Any>?.cancelByActive() = this?.run {
     }
 }
 
-fun tryCatch(catchBlock: (Throwable) -> Unit = {}, tryBlock: () -> Unit) {
+inline fun tryCatch(catchBlock: (Throwable) -> Unit = {}, tryBlock: () -> Unit) {
     try {
         tryBlock()
     } catch (_: JobCancellationException) {

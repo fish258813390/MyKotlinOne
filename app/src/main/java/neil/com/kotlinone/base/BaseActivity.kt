@@ -58,7 +58,7 @@ abstract class BaseActivity : AppCompatActivity() {
     private fun hideSoftKeyBoard() {
         // 调用某对象的let函数，则该对象为函数的参数。在函数块内可以通过 it 指代该对象。
         // 返回值为函数块的最后一行或指定return表达式。
-        currentFocus.let {
+        currentFocus?.let {
             imm.hideSoftInputFromWindow(it.windowToken, 2)
         }
     }

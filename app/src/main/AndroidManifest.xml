@@ -29,6 +29,7 @@
         <activity android:name=".ui.SplashActivity" />
         <activity android:name=".ui.HomeClientActivity" />
         <activity android:name=".ui.activity.ContentActivity" />
+        <activity android:name=".ui.activity.AboutActivity" />
 
     </application>
 

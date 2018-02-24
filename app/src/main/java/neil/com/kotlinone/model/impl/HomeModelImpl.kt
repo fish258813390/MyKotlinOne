@@ -21,13 +21,10 @@ import neil.com.kotlinone.utils.RetrofitUtils
  */
 class HomeModelImpl : HomeModel {
 
-
     // 协程任务 https://www.jianshu.com/p/d4a8358e843e
     private var homeListAsync: Deferred<HomeListResponse>? = null
 
-    /**
-     * 获取banner
-     */
+    // 获取banner
     private var bannerAsync: Deferred<BannerResponse>? = null
 
 
@@ -48,7 +45,7 @@ class HomeModelImpl : HomeModel {
                 .retrofitClientService
                 .getHomeList1(page)
                 .subscribeOn(Schedulers.io())
-//                .unsubscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { result ->
@@ -64,7 +61,6 @@ class HomeModelImpl : HomeModel {
                     Log.d("HomeModelImpl --->", "onStart")
                 })
 
-
     }
 
     // 取消文章请求
@@ -75,7 +71,7 @@ class HomeModelImpl : HomeModel {
     override fun getBanner(onBannerListener: HomePresenter.OnBannerListener) {
 //        async(UI) {
 //            bannerAsync?.cancelByActive()
-//            bannerAsync = RetrofitUtils.retrofitClientService.getBanner()
+//            bannerAsync = RetrofitUtils.coroutineService.getBanner()
 //            val result = bannerAsync?.await()
 //            result ?: let {
 //                onBannerListener.getBannerFailed(Constant.RESULT_NULL)
@@ -88,7 +84,7 @@ class HomeModelImpl : HomeModel {
                 .retrofitClientService
                 .getBanner1()
                 .subscribeOn(Schedulers.io())
-//                .unsubscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { result ->

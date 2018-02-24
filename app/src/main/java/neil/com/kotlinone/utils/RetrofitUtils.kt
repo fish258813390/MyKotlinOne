@@ -1,6 +1,7 @@
 package neil.com.kotlinone.utils
 
 import android.util.Log
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import neil.com.kotlinone.api.GithubService
 import neil.com.kotlinone.constant.Constant
@@ -30,10 +31,9 @@ class RetrofitUtils<T> {
             val loggingInterceptor: HttpLoggingInterceptor =
                     HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
                         override fun log(message: String?) {
-                            Log.d("loggingInterceptor",message)
+                            Log.d("loggingInterceptor", message)
                         }
                     })
-
             //
 //            val loggingInterceptor1: HttpLoggingInterceptor = HttpLoggingInterceptor(
 //                    HttpLoggingInterceptor.Logger { message: String? ->
@@ -58,6 +58,34 @@ class RetrofitUtils<T> {
                     .build()
         }
 
+        // 创建Retrofit
+        fun createCoroutine(url: String): Retrofit {
+            // 日志显示级别
+            val level: HttpLoggingInterceptor.Level = HttpLoggingInterceptor.Level.BODY
+            // 新建log拦截器
+            val loggingInterceptor: HttpLoggingInterceptor = HttpLoggingInterceptor(
+                    HttpLoggingInterceptor.Logger { message: String? ->
+                        Log.d("loggingInterceptor", message)
+                    })
+
+            loggingInterceptor.level = level
+            val okHttpClientBuilder = OkHttpClient().newBuilder()
+
+            okHttpClientBuilder.connectTimeout(60, TimeUnit.SECONDS)
+            okHttpClientBuilder.readTimeout(60, TimeUnit.SECONDS)
+            okHttpClientBuilder.writeTimeout(60, TimeUnit.SECONDS)
+
+            // 添加拦截器
+            okHttpClientBuilder.addInterceptor(loggingInterceptor)
+            return Retrofit.Builder()
+                    .baseUrl(url)
+                    .client(okHttpClientBuilder.build())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                    .build()
+        }
+
+
         /**
          * 获取Service Api
          */
@@ -65,12 +93,21 @@ class RetrofitUtils<T> {
             return create(url).create(service)
         }
 
+        /**
+         * 根据协程 获取Service Api
+         */
+        fun <T> getCoroutinesService(url: String, service: Class<T>): T {
+            return createCoroutine(url).create(service)
+        }
+
         val retrofitService: GithubService = RetrofitUtils.
                 getService(Constant.REQUEST_BASE_URL, GithubService::class.java)
 
-
         val retrofitClientService: RetrofitService = RetrofitUtils.
                 getService(Constant.REQUEST_CLIENT_BASE_URL, RetrofitService::class.java)
+
+        val coroutineService: RetrofitService = RetrofitUtils.
+                getCoroutinesService(Constant.REQUEST_CLIENT_BASE_URL, RetrofitService::class.java)
 
     }
 }

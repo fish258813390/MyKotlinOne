@@ -28,8 +28,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
     // kotlin 插件
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
     // rxjava retrofit
     compile "com.squareup.retrofit2:retrofit:$retrofit2_version"
     compile "com.squareup.retrofit2:converter-gson:$retrofit2_converter_gson_version"
@@ -38,13 +40,15 @@ dependencies {
     compile "io.reactivex.rxjava2:rxandroid:$rxjava_android_version"
     compile "com.squareup.okhttp3:logging-interceptor:$okhttp3_logging_version"
     implementation 'com.android.support:recyclerview-v7:26.1.0'
+
     // 沉侵式
     implementation "com.gyf.barlibrary:barlibrary:$barlibrary_version"
     implementation "com.github.bumptech.glide:glide:$glide_version"
 
-    //
+    // kotlin 协程编程
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_version"
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:$retrofit2_converter_kotlin_coroutines_version"
+
     // 适配器
     implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:$brvah_version"
 
@@ -58,3 +62,9 @@ dependencies {
 repositories {
     mavenCentral()
 }
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
+

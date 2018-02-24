@@ -8,6 +8,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import neil.com.kotlinone.ui.HomeClientActivity
 import neil.com.kotlinone.ui.RegisterActivity
+import neil.com.kotlinone.ui.activity.AboutActivity
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -23,8 +24,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         when (v?.id) {
             R.id.btn_register ->
                 toRegister()
-            R.id.btn_login ->
-                Toast.makeText(this, "kotlin_login", Toast.LENGTH_LONG).show()
+            R.id.btn_login -> {
+                Intent(this,AboutActivity::class.java).run {
+                    startActivity(this)
+                }
+            }
             R.id.btn_client -> {
                 Intent(this, HomeClientActivity::class.java).run {
                     startActivity(this)
